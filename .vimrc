@@ -44,6 +44,7 @@ nnoremap <space> za			" za opens/closes fold around current block
 " movement {{{
 nnoremap j gj               " move vertically by visual line
 nnoremap k gk
+set backspace=indent,eol,start " yeah this is movement to me, no regrets
 " }}}
 " leader shortcuts {{{
 let mapleader=","           " leader is comma!
