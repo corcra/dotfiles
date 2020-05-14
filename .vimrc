@@ -1,11 +1,8 @@
 " this vimrc largely taken from http://dougblack.io/words/a-good-vimrc.html
 
-" pathogen {{{
-execute pathogen#infect()
-" }}}
 " colour {{{
 syntax enable				" enable syntax processing
-colorscheme badwolf			" use colorscheme (under .vim/colors/)
+colorscheme jellybeans
 set colorcolumn=80
 " }}}
 " spaces/tabs {{{
@@ -19,6 +16,8 @@ set expandtab				" turn <TAB> into spaces
 set number				" show line numbers
 set cursorline				" highlight current line
 set relativenumber
+set list                    "highlight trailing whitespace
+set listchars=trail:*
 " }}}
 " random visuals {{{
 set showcmd				" show command in bottom bar
@@ -42,7 +41,7 @@ set foldmethod=indent       " fold based on indent level
 nnoremap <space> za			" za opens/closes fold around current block
 " }}}
 " movement {{{
-nnoremap j gj               " move vertically by visual line
+nnoremap j gj
 nnoremap k gk
 set backspace=indent,eol,start " yeah this is movement to me, no regrets
 " }}}
@@ -66,14 +65,21 @@ set backupdir=~/.vim-tmp
 set directory=~/.vim-tmp
 set writebackup
 " }}}
-" powerline {{{
-set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
-set laststatus=2 " Always display the statusline in all windows
-set showtabline=2 " Always display the tabline, even if there is only one tab
-set noshowmode
-" }}}
 " fonts/encoding {{{
 set termencoding=utf-8
 set encoding=utf-8
 " }}}
 " vim:foldmethod=marker:foldlevel=0
+" flake 8 {{{
+" rebind flake8 to f3
+autocmd FileType python map <buffer> <F3> :call flake8#Flake8()<CR>
+" run flake8 every time i write a python file
+autocmd BufWritePost *.py call flake8#Flake8()
+" }})
+" {{{ ale
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+let g:ale_fixers = {'python': ['reorder-python-imports', 'autopep8', 'trim_whitespace', 'yapf']}
+let g:ale_linters = {'python': ['flake8', 'mypy']}
+" }}}
